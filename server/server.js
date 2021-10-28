@@ -15,7 +15,10 @@ const server = new ApolloServer({
   resolvers,
   // Add context to our server so data from the `authMiddleware()` function can pass data to our resolver functions
   context: authMiddleware,
-  //FormatError:
+  formatError:(err) => {
+    console.log(err);
+    return err;
+  }
 });
 server.applyMiddleware({ app });
 

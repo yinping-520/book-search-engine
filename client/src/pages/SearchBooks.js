@@ -69,7 +69,7 @@ const SearchBooks = () => {
 
     try {
       const {data} = await saveBook({
-        varibles: {savedBookIds}
+        varibles: {bookId}
 
       });
       Auth.login(data.saveBook.token);

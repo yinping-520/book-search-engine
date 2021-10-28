@@ -29,10 +29,10 @@ const SignupForm = () => {
       event.preventDefault();
       event.stopPropagation();
     }
-
+console.log(userFormData)
     try {
        const {data} = await addUser({
-         variable: {...userFormData},
+         variables: {...userFormData},
        });
 
       if (!data.ok) {
