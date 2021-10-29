@@ -10,10 +10,11 @@ import { GET_ME } from '../utils/queries';
 import {REMOVE_BOOK} from '../utils/mutations'
 
 const SavedBooks = () => {
-  const [userData, setUserData] = useState({});
+  //const [userData, setUserData] = useState({});
 
   // use this to determine if `useEffect()` hook needs to run again
-  const userDataLength = Object.keys(userData).length;
+  // const userDataLength = Object.keys(userData).length;
+
 
   // useEffect(() => {
   //   const getUserData = async () => {
@@ -41,21 +42,22 @@ const SavedBooks = () => {
   // }, [userDataLength]);
 
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
-
+  
   const {loading, data} = useQuery(GET_ME)
-  setUserData(data)
-
+  console.log(data)
+  const userData = []
+  
   const [removeBook, {error, updatedData}] = useMutation(REMOVE_BOOK);
   
   const handleDeleteBook = async (bookId) => {
     
     const token = Auth.loggedIn() ? Auth.getToken() : null;
-
+    
     if (!token) {
       return false;
     }
-
-
+    
+    
     try {
       const {updatedData} = await removeBook({
         varables:{bookId}
@@ -64,7 +66,7 @@ const SavedBooks = () => {
       if (!updatedData.ok) {
         throw new Error('something went wrong!');
       }
-      setUserData(updatedData);
+     
       // upon success, remove book's id from localStorage
       removeBookId(bookId);
     } catch (err) {
@@ -73,10 +75,10 @@ const SavedBooks = () => {
   };
 
   // if data isn't here yet, say so
-  if (!userDataLength) {
+  if (!userData.Length) {
     return <h2>LOADING...</h2>;
   }
-
+  
   return (
     <>
       <Jumbotron fluid className='text-light bg-dark'>

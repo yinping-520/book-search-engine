@@ -35,11 +35,11 @@ console.log(userFormData)
          variables: {...userFormData},
        });
 
-      if (!data.ok) {
+      if (!data) {
         throw new Error('something went wrong!');
       }
-
-      Auth.login(data.login.token);
+console.log(data)
+      Auth.login(data.addUser.token);
       //console.log(user);
       
     } catch (err) {
